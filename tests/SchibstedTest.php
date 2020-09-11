@@ -39,7 +39,7 @@ class SchibstedTest extends TestCase
     public function testGetUrlAccessToken()
     {
         $provider = new OauthProvider($this->config);
-        $url = $provider->getBaseAccessTokenUrl();
+        $url = $provider->getBaseAccessTokenUrl([]);
         $parsedUrl = parse_url($url);
 
         $expectedHost = parse_url(self::DOMAIN)['host'];
