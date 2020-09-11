@@ -12,13 +12,19 @@ class Schibsted extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    private $baseUrl;
+    protected $domain;
+    protected $apiVersion = '2';
 
     public function __construct(array $options = [], array $collaborators = [])
     {
-        $this->baseUrl = $options['baseUrl'];
-        unset($baseUrl);
+        $this->domain = rtrim($options['domain'], '/');
+        unset($options['domain']);
         parent::__construct($options, $collaborators);
+    }
+
+    protected function domain()
+    {
+        return $this->domain;
     }
 
     /**
@@ -28,7 +34,7 @@ class Schibsted extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return $this->baseUrl . '/oauth/authorize';
+        return $this->domain() . '/oauth/authorize';
     }
 
     /**
@@ -40,7 +46,7 @@ class Schibsted extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->baseUrl . '/oauth/token';
+        return $this->domain() . '/oauth/token';
     }
 
     /**
@@ -52,7 +58,7 @@ class Schibsted extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return $this->baseUrl . '/oauth/userinfo';
+        return $this->domain() . '/oauth/userinfo';
     }
 
     /**
@@ -134,4 +140,23 @@ class Schibsted extends AbstractProvider
     {
         return 'user_id';
     }
+
+    /**
+     * Wrapper to make request against Schibsted account
+     *
+     * @param  string $method
+     * @param  string $path
+     * @param  League\OAuth2\Client\Token\AccessTokenInterface|string $token
+     * @param  array $options Any of "headers", "body", and "protocolVersion".
+     * @return Psr\Http\Message\RequestInterface
+     */
+    public function getAuthenticatedRequest($method, $url, $token, $options = [])
+    {
+        if (substr($url, 0, 4) !== 'http') {
+            $path = ltrim($url, '/');
+            $url = $this->domain() . "/api/{$this->apiVersion}/${path}";
+        }
+        return parent::getAuthenticatedRequest($method, $url, $token, $options);
+    }
+
 }
