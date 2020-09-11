@@ -27,7 +27,7 @@ class SchibstedTest extends TestCase
 
         $expectedHost = parse_url(self::DOMAIN)['host'];
         $this->assertEquals($expectedHost, $parsedUrl['host']);
-        $this->assertEquals('/authorize', $parsedUrl['path']);
+        $this->assertEquals('/oauth/authorize', $parsedUrl['path']);
 
         parse_str($parsedUrl['query'], $q);
         $scope = explode(' ', $q['scope']);

@@ -68,7 +68,7 @@ class Schibsted extends AbstractProvider
      */
     protected function getDefaultScopes()
     {
-        return ['openid', 'profile', 'email', 'address', 'phone'];
+        return ['openid', 'profile', 'email', 'address', 'phone', 'offline_access'];
     }
 
     /**
