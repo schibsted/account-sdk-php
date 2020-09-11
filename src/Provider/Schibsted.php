@@ -62,6 +62,18 @@ class Schibsted extends AbstractProvider
     }
 
     /**
+     * Returns the default headers used by this provider.
+     *
+     * @return array
+     */
+    protected function getDefaultHeaders()
+    {
+        return [
+            'X-OIDC' => 'v1'
+        ];
+    }
+
+    /**
      * Returns the default scopes used by this provider.
      *
      * @return array
@@ -138,7 +150,7 @@ class Schibsted extends AbstractProvider
      */
     protected function getAccessTokenResourceOwnerId()
     {
-        return 'user_id';
+        return 'id_token';
     }
 
     /**
@@ -158,5 +170,4 @@ class Schibsted extends AbstractProvider
         }
         return parent::getAuthenticatedRequest($method, $url, $token, $options);
     }
-
 }
