@@ -1,0 +1,15 @@
+{
+    "name": "schibsted/account-sdk-php",
+    "description": "OAuth2 client for Schibsted account",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["oauth2", "client", "authorization", "schibsted"],
+    "require": {
+        "league/oauth2-client": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Schibsted\\OAuth2\\Client\\": "src/"
+        }
+    }
+}
