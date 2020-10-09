@@ -121,10 +121,12 @@ class Schibsted extends AbstractProvider
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        if ($response->getStatusCode() >= 400) {
-            $errorMessage = empty($data['error']) ? $response->getReasonPhrase() : $data['error'];
+        if (in_array($response->getStatusCode(), [400, 401]) &&
+            is_string($data['error']) &&
+            (is_string($data['error_description']) || (is_string($data['type']) && $data['type'] === 'OAuthException'))
+        ) {
             throw new IdentityProviderException(
-                $errorMessage,
+                $data['error'],
                 $response->getStatusCode(),
                 $response
             );
