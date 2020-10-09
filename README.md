@@ -23,7 +23,7 @@ Usage is the same as The League's OAuth client, using `Schibsted\OAuth2\Client\P
 You have to provide some parameters to the provider:
 
 - domain:
-   - description: The Schibsted account domain to use
+   - description: The Schibsted account domain to use, e.g https://login.schibsted.com
 - clientId
    - description: The client ID assigned to you by the provider
 - clientSecret

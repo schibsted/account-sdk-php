@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use UnexpectedValueException;
 
 class Schibsted extends AbstractProvider
 {
@@ -15,10 +16,27 @@ class Schibsted extends AbstractProvider
     protected $domain;
     protected $apiVersion = '2';
 
+    /**
+     * Constructs an OAuth 2.0 service provider.
+     *
+     * @throws UnexpectedValueException
+     *
+     * @param array $options An array of options to set on this provider.
+     *     Options include `clientId`, `clientSecret`, `redirectUri`, and `state`.
+     *     Individual providers may introduce more options, as needed.
+     * @param array $collaborators An array of collaborators that may be used to
+     *     override this provider's default behavior. Collaborators include
+     *     `grantFactory`, `requestFactory`, and `httpClient`.
+     *     Individual providers may introduce more collaborators, as needed.
+     */
     public function __construct(array $options = [], array $collaborators = [])
     {
         $this->domain = rtrim($options['domain'], '/');
         unset($options['domain']);
+        if (substr($this->domain, 0, 4) !== 'http') {
+            throw new UnexpectedValueException('Domain must include protocol');
+        }
+
         parent::__construct($options, $collaborators);
     }
 
