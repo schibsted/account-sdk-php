@@ -156,11 +156,11 @@ class Schibsted extends AbstractProvider
      * @param array       $response
      * @param AccessToken $token
      *
-     * @return SchibstedUser
+     * @return SchibstedResourceOwner
      */
     public function createResourceOwner(array $response, AccessToken $token)
     {
-        return new SchibstedUser($response);
+        return new SchibstedResourceOwner($response);
     }
 
     /**
