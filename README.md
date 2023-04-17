@@ -1,6 +1,6 @@
 # Schibsted account Provider for OAuth 2.0 Client
 
-[![Build Status](https://img.shields.io/travis/schibsted/account-sdk-php.svg)](https://travis-ci.org/schibsted/account-sdk-php)
+[![Build Status](https://app.travis-ci.com/schibsted/account-sdk-php.svg?branch=master)](https://app.travis-ci.com/github/schibsted/account-sdk-php)
 [![License](https://img.shields.io/packagist/l/schibsted/account-sdk-php.svg)](https://github.com/schibsted/account-sdk-php/blob/master/LICENSE)
 [![Latest Stable Version](https://img.shields.io/packagist/v/schibsted/account-sdk-php.svg)](https://packagist.org/packages/schibsted/account-sdk-php)
 
